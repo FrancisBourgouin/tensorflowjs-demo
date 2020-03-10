@@ -1,0 +1,14 @@
+.App {
+	text-align: center;
+}
+
+.testImage {
+	position: relative;
+	display: inline-block;
+
+	canvas {
+		position: absolute;
+		width: 640px;
+		height: 480px;
+	}
+}
