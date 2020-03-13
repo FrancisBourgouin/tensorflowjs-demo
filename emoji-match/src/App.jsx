@@ -5,6 +5,7 @@ function App() {
 	const [isLoading, setIsLoading] = useState(false);
 	const [videoCanvas, setVideoCanvas] = useState(undefined);
 	const [currentEmoji, setCurrentEmoji] = useState("");
+
 	console.log("videyo", videoCanvas);
 	useEffect(() => {
 		faceapi.nets.faceLandmark68Net
@@ -32,6 +33,7 @@ function App() {
 			.detectAllFaces(input)
 			.withFaceLandmarks()
 			.then(detections => {
+				console.log(detections)
 				return faceapi.resizeResults(detections, displaySize);
 			})
 			.then(resizedResults => {
@@ -58,9 +60,11 @@ function App() {
 			.withFaceLandmarks()
 			.withFaceExpressions()
 			.then(detections => {
+				console.log(detections)
 				return faceapi.resizeResults(detections, displaySize);
 			})
 			.then(resizedResults => {
+				console.log(resizedResults)
 				faceapi.draw.drawDetections(canvas, resizedResults);
 				faceapi.draw.drawFaceExpressions(
 					canvas,
@@ -83,7 +87,6 @@ function App() {
 		const minProbability = 0.5;
 
 		const scanInterval = setInterval(() => {
-			context.clearRect(0, 0, canvas.width, canvas.height);
 			faceapi
 				.detectSingleFace(video)
 				.withFaceLandmarks()
@@ -96,6 +99,8 @@ function App() {
 				})
 				.then(resizedResults => {
 					if (resizedResults) {
+						context.clearRect(0, 0, canvas.width, canvas.height);
+
 						faceapi.draw.drawDetections(canvas, resizedResults);
 						faceapi.draw.drawFaceLandmarks(canvas, resizedResults);
 						faceapi.draw.drawFaceExpressions(
@@ -106,7 +111,7 @@ function App() {
 					}
 				})
 				.then(() => setVideoCanvas(canvas));
-		}, 300);
+		}, 100);
 	};
 
 	const testFaceVideoEmoji = () => {

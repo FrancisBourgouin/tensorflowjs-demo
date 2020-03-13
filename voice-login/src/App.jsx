@@ -35,8 +35,8 @@ function App() {
 		setVoiceListener(
 			soundClassifier(
 				// 	"https://teachablemachine.withgoogle.com/models/IoAT1PCX/model.json",
-				"http://localhost:3000/models/hello-bye-v1/model.json",
-				{ probabilityThreshold: 0.85 },
+				"http://localhost:3000/models/hello-bye-v2/model.json",
+				{ probabilityThreshold: 0.70 },
 				() => setVoiceListenerReady(true)
 			)
 		);
